@@ -47,6 +47,28 @@ import gdxforConnectionIconURL from './gdxfor/gdxfor-illustration.svg';
 import gdxforConnectionSmallIconURL from './gdxfor/gdxfor-small.svg';
 
 export default [
+
+    {
+        name: (
+            <FormattedMessage
+                defaultMessage="Chance"
+                description="Name for the 'Music' extension"
+                id="gui.extension.chance.name"
+            />
+        ),
+        extensionId: 'chance',
+        iconURL: musicIconURL,
+        insetIconURL: musicInsetIconURL,
+        description: (
+            <FormattedMessage
+                defaultMessage="Take a chance on me."
+                description="Description for the 'Music' extension"
+                id="gui.extension.chance.description"
+            />
+        ),
+        featured: true
+    },
+
     {
         name: (
             <FormattedMessage
