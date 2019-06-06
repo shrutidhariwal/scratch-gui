@@ -317,5 +317,20 @@ export default [
             />
         ),
         helpLink: 'https://scratch.mit.edu/vernier'
-    }
+    },
+    {
+        name: 'Chance',
+        extensionId: 'chance',
+        collaborator: 'Da Internz',
+        iconURL: makeymakeyIconURL,
+        insetIconURL: makeymakeyInsetIconURL,
+        description: (
+            <FormattedMessage
+                defaultMessage="Take a chance on me!"
+                description="Description for the 'Makey Makey' extension"
+                id="gui.extension.chance.description"
+            />
+        ),
+        featured: true
+    },
 ];
