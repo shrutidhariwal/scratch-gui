@@ -48,27 +48,7 @@ import gdxforConnectionSmallIconURL from './gdxfor/gdxfor-small.svg';
 
 export default [
 
-    {
-        name: (
-            <FormattedMessage
-                defaultMessage="Chance"
-                description="Name for the 'Music' extension"
-                id="gui.extension.chance.name"
-            />
-        ),
-        extensionId: 'chance',
-        iconURL: musicIconURL,
-        insetIconURL: musicInsetIconURL,
-        description: (
-            <FormattedMessage
-                defaultMessage="Take a chance on me."
-                description="Description for the 'Music' extension"
-                id="gui.extension.chance.description"
-            />
-        ),
-        featured: true
-    },
-
+    
     {
         name: (
             <FormattedMessage
@@ -339,5 +319,20 @@ export default [
             />
         ),
         helpLink: 'https://scratch.mit.edu/vernier'
-    }
+    },
+    {
+        name: 'Chance',
+        extensionId: 'chance',
+        collaborator: 'Da Internz',
+        iconURL: makeymakeyIconURL,
+        insetIconURL: makeymakeyInsetIconURL,
+        description: (
+            <FormattedMessage
+                defaultMessage="Take a chance on me!"
+                description="Description for the 'Makey Makey' extension"
+                id="gui.extension.chance.description"
+            />
+        ),
+        featured: true
+    },
 ];
