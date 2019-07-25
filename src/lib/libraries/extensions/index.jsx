@@ -1,6 +1,9 @@
 import React from 'react';
 import {FormattedMessage} from 'react-intl';
 
+import chanceIconURL from './chance/chance.png';
+import chanceInsetIconURL from './chance/chance-small.svg';
+
 import musicIconURL from './music/music.png';
 import musicInsetIconURL from './music/music-small.svg';
 
@@ -47,6 +50,20 @@ import gdxforConnectionIconURL from './gdxfor/gdxfor-illustration.svg';
 import gdxforConnectionSmallIconURL from './gdxfor/gdxfor-small.svg';
 
 export default [
+    {
+        name: 'Chance',
+        extensionId: 'chance',
+        iconURL: chanceIconURL,
+        insetIconURL: chanceInsetIconURL,
+        description: (
+            <FormattedMessage
+                defaultMessage="Play with probabilities"
+                description="Description for the 'Chance' extension"
+                id="gui.extension.chance.description"
+            />
+        ),
+        featured: true
+    },
 
     
     {
@@ -319,20 +336,5 @@ export default [
             />
         ),
         helpLink: 'https://scratch.mit.edu/vernier'
-    },
-    {
-        name: 'Chance',
-        extensionId: 'chance',
-        collaborator: 'Da Internz',
-        iconURL: makeymakeyIconURL,
-        insetIconURL: makeymakeyInsetIconURL,
-        description: (
-            <FormattedMessage
-                defaultMessage="Take a chance on me!"
-                description="Description for the 'Makey Makey' extension"
-                id="gui.extension.chance.description"
-            />
-        ),
-        featured: true
-    },
+    }
 ];
