@@ -16,12 +16,16 @@ class ConnectionModal extends React.Component {
             'handleNameDice',
             'handleCancel',
             'handleSetDistribution',
-            'handleMoveSlider'
+            'handleMoveSlider',
+            'handleStageMouseMove',
+            'handleStageMouseUp'
         ]);
         this.state = {
             extension: extensionData.find(ext => ext.extensionId === props.extensionId),
             phase: PHASES.diceName
         };
+        this.isMouseDown = false;
+        this.currentSlider = null;
         
     }
     
@@ -65,8 +69,25 @@ class ConnectionModal extends React.Component {
         const mouseX = e.clientX - bBox.left;
         const mouseY = e.clientY - bBox.top;
         const sliderNumber = this._detectSlider(mouseX);
+        this.currentSlider = sliderNumber;
+        this.isMouseDown = true;
         const newHeight = 240 - mouseY;
         this._setSliderNode(sliderNumber, newHeight);
+    }
+
+    handleStageMouseMove (e) {
+        if (this.isMouseDown) {
+            const sliderStage = document.getElementById('slider-stage');
+            const bBox = sliderStage.getBoundingClientRect();
+            const mouseY = e.clientY - bBox.top;
+            const newHeight = 240 - mouseY;
+            this._setSliderNode(this.currentSlider, newHeight);
+        }
+    }
+
+    handleStageMouseUp () {
+        this.currentSlider = null;
+        this.isMouseDown = false;
     }
 
     _setSliderNode (sliderIndex, newHeight) {
@@ -132,6 +153,8 @@ class ConnectionModal extends React.Component {
                 onNameDice={this.handleNameDice}
                 onSetDistribution={this.handleSetDistribution}
                 onMoveSlider={this.handleMoveSlider}
+                onStageMouseMove={this.handleStageMouseMove}
+                onStageMouseUp={this.handleStageMouseUp}
 
             />
         );

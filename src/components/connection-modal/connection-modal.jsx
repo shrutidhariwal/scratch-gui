@@ -30,6 +30,8 @@ const ConnectionModalComponent = props => (
             {props.phase === PHASES.setDistribution && <SetDistribution
                 onSetDistribution={props.onSetDistribution}
                 onMoveSlider={props.onMoveSlider}
+                onStageMouseUp={props.onStageMouseUp}
+                onStageMouseMove={props.onStageMouseMove}
                 onCancel={props.onCancel}
             />}
         </Box>
