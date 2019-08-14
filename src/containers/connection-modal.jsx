@@ -15,12 +15,14 @@ class ConnectionModal extends React.Component {
             'handleHelp',
             'handleNameDice',
             'handleCancel',
-            'handleSetDistribution'
+            'handleSetDistribution',
+            'handleMoveSlider'
         ]);
         this.state = {
             extension: extensionData.find(ext => ext.extensionId === props.extensionId),
             phase: PHASES.diceName
         };
+        
     }
     
     
@@ -57,6 +59,65 @@ class ConnectionModal extends React.Component {
         console.log('GET YEETED');
     }
 
+    handleMoveSlider (e) {
+        const sliderStage = document.getElementById('slider-stage');
+        const bBox = sliderStage.getBoundingClientRect();
+        const mouseX = e.clientX - bBox.left;
+        const mouseY = e.clientY - bBox.top;
+        const sliderNumber = this._detectSlider(mouseX);
+        const newHeight = 240 - mouseY;
+        this._setSliderNode(sliderNumber, newHeight);
+    }
+
+    _setSliderNode (sliderIndex, newHeight) {
+        const sliders = [];
+        const sliderHeights = [];
+        for (let i = 0; i < 6; i++) {
+            sliders.push(document.getElementById('rect' + i));
+            sliderHeights.push(parseFloat(sliders[i].getAttribute('height')));
+        }
+
+        const numSliders = 6;
+
+        if (sliderIndex < 0 || sliderIndex > numSliders) return;
+        if (newHeight < 0) {
+            newHeight = 0;
+        }
+        const heightDiff = sliderHeights[sliderIndex] - newHeight;
+        let sumOfRest = 0;
+        for (let i = 0; i < numSliders; i++) {
+            if (i !== sliderIndex) {
+                sumOfRest += sliderHeights[i];
+            }
+        }
+        for (let i = 0; i < numSliders; i++) {
+            if (i !== sliderIndex) {
+                if (sumOfRest === 0) {
+                    sliderHeights[i] = sliderHeights[i] + heightDiff / (numSliders - 1);
+
+                } else {
+                    sliderHeights[i] = sliderHeights[i] + (heightDiff * sliderHeights[i] / sumOfRest);
+                    if (sliderHeights[i] < 0) {
+                        sliderHeights[i] = 0;
+                    }
+                }
+            }
+        }
+        sliderHeights[sliderIndex] = newHeight;
+
+        for (let i = 0; i < 6; i++) {
+            sliders[i].setAttribute('height', sliderHeights[i]);
+            sliders[i].setAttribute('y', 240 - sliderHeights[i]);
+        }
+
+    }
+
+    _detectSlider (mouseX) {
+        const nodeSize = parseFloat(document.getElementById('rect0').getAttribute('width'));
+        const nodePad = parseFloat(document.getElementById('rect1').getAttribute('x') - document.getElementById('rect0').getAttribute('x') - nodeSize);
+        return Math.trunc(mouseX / (nodeSize + nodePad));
+    }
+
     render () {
         return (
             <ConnectionModalComponent
@@ -70,6 +131,7 @@ class ConnectionModal extends React.Component {
                 onHelp={this.handleHelp}
                 onNameDice={this.handleNameDice}
                 onSetDistribution={this.handleSetDistribution}
+                onMoveSlider={this.handleMoveSlider}
 
             />
         );

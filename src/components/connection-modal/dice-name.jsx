@@ -16,7 +16,7 @@ const DiceName = props => (
         </Box>
         <Box className={classNames(styles.bottomArea)}>
             <Box className={classNames(styles.bottomAreaItem, styles.buttonRow)}>
-                <button onClick={props.onNameDice}>Create Dice</button>      
+                <button onClick={props.onNameDice}>Next</button>      
             </Box>
         </Box>
     </Box>
