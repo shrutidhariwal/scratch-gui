@@ -23,7 +23,7 @@ const SetDistribution = props => (
     
     <Box className={styles.body}>
         <Box className={styles.activityArea}>
-            <svg id="slider-stage" height={STAGE_HEIGHT + 'px'} width={STAGE_WIDTH + 'px'} onMouseDown={props.onMoveSlider} onMouseMove={props.onStageMouseMove} onMouseUp={props.onStageMouseUp}>
+            <svg id="slider-stage" height={STAGE_HEIGHT + 'px'} width={STAGE_WIDTH + 'px'} onMouseDown={props.onMoveSlider} onMouseMove={props.onStageMouseMove} onMouseLeave={props.onStageMouseUp} onMouseUp={props.onStageMouseUp} cursor="ns-resize">
                 <rect id="rect0" height={HEIGHT} width={WIDTH} fill="#65CEFF" x={PAD} y={Y} rx={ROUND} ry={ROUND}> </rect>
                 <rect id="rect1" height={HEIGHT} width={WIDTH} fill="#65CEFF" x={2 * PAD + WIDTH} y={Y} rx={ROUND} ry={ROUND}> </rect>
                 <rect id="rect2" height={HEIGHT} width={WIDTH} fill="#65CEFF" x={3 * PAD + 2 * WIDTH} y={Y} rx={ROUND} ry={ROUND}> </rect>

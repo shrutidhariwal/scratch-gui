@@ -26,7 +26,15 @@ class ConnectionModal extends React.Component {
         };
         this.isMouseDown = false;
         this.currentSlider = null;
+
+       
+        this.STAGE_HEIGHT = 250;
+        this.PAD = 10;
+        this.BOTTOM_MARGIN = 20;
+        this.MAX_HEIGHT = this.STAGE_HEIGHT - this.BOTTOM_MARGIN;
+        this.Y = this.MAX_HEIGHT + this.PAD;
         
+
     }
     
     
@@ -60,7 +68,16 @@ class ConnectionModal extends React.Component {
     }
 
     handleSetDistribution () {
-        console.log('GET YEETED');
+        const sliders = [];
+        const sliderHeights = [];
+        const result = [];
+        for (let i = 0; i < 6; i++) {
+            sliders.push(document.getElementById('rect' + i));
+            sliderHeights.push(parseFloat(sliders[i].getAttribute('height')));
+            result.push(sliderHeights[i] / this.MAX_HEIGHT * 100.0);
+        }
+        this.props.vm.runtime.emit('SET_DISTRIBUTION', result.toString());
+        this.props.onCancel();
     }
 
     handleMoveSlider (e) {
@@ -71,7 +88,7 @@ class ConnectionModal extends React.Component {
         const sliderNumber = this._detectSlider(mouseX);
         this.currentSlider = sliderNumber;
         this.isMouseDown = true;
-        const newHeight = 240 - mouseY;
+        const newHeight = this.Y - mouseY;
         this._setSliderNode(sliderNumber, newHeight);
     }
 
@@ -80,7 +97,7 @@ class ConnectionModal extends React.Component {
             const sliderStage = document.getElementById('slider-stage');
             const bBox = sliderStage.getBoundingClientRect();
             const mouseY = e.clientY - bBox.top;
-            const newHeight = 240 - mouseY;
+            const newHeight = this.Y - mouseY;
             this._setSliderNode(this.currentSlider, newHeight);
         }
     }
@@ -128,7 +145,7 @@ class ConnectionModal extends React.Component {
 
         for (let i = 0; i < 6; i++) {
             sliders[i].setAttribute('height', sliderHeights[i]);
-            sliders[i].setAttribute('y', 240 - sliderHeights[i]);
+            sliders[i].setAttribute('y', this.Y - sliderHeights[i]);
         }
 
     }

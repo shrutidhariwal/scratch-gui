@@ -10,7 +10,7 @@ import styles from './ml-modal.css';
 const DiceName = props => (
     <Box className={styles.body}>
         <Box className={styles.activityArea}>
-            Name of Dice:  
+            <a>Name of Dice:</a>  
             <input type="text" className="input-field" id="diceNameInput">
             </input>
         </Box>
