@@ -18,7 +18,8 @@ class ConnectionModal extends React.Component {
             'handleSetDistribution',
             'handleMoveSlider',
             'handleStageMouseMove',
-            'handleStageMouseUp'
+            'handleStageMouseUp',
+            'handleAddSlider'
         ]);
         this.state = {
             extension: extensionData.find(ext => ext.extensionId === props.extensionId),
@@ -30,11 +31,15 @@ class ConnectionModal extends React.Component {
        
         this.STAGE_HEIGHT = 250;
         this.PAD = 10;
-        this.BOTTOM_MARGIN = 20;
+        this.BOTTOM_MARGIN = 40;
         this.MAX_HEIGHT = this.STAGE_HEIGHT - this.BOTTOM_MARGIN;
         this.Y = this.MAX_HEIGHT + this.PAD;
-        
+        this.numRects = 6;
 
+        this.STAGE_WIDTH = 450;
+        this.RIGHT_MARGIN = 40;
+        this.ROUND = 4;
+        this.MAX_NUM_SLIDERS = 20;
     }
     
     
@@ -71,11 +76,12 @@ class ConnectionModal extends React.Component {
         const sliders = [];
         const sliderHeights = [];
         const result = [];
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < this.numRects; i++) {
             sliders.push(document.getElementById('rect' + i));
             sliderHeights.push(parseFloat(sliders[i].getAttribute('height')));
             result.push(sliderHeights[i] / this.MAX_HEIGHT * 100.0);
         }
+        console.log(result.toString());
         this.props.vm.runtime.emit('SET_DISTRIBUTION', result.toString());
         this.props.onCancel();
     }
@@ -86,6 +92,7 @@ class ConnectionModal extends React.Component {
         const mouseX = e.clientX - bBox.left;
         const mouseY = e.clientY - bBox.top;
         const sliderNumber = this._detectSlider(mouseX);
+        if (sliderNumber < 0 || sliderNumber >= this.numRects) {return;}
         this.currentSlider = sliderNumber;
         this.isMouseDown = true;
         const newHeight = this.Y - mouseY;
@@ -107,15 +114,40 @@ class ConnectionModal extends React.Component {
         this.isMouseDown = false;
     }
 
-    _setSliderNode (sliderIndex, newHeight) {
+    handleAddSlider () {
+        if (this.numRects === this.MAX_NUM_SLIDERS) {return;}
         const sliders = [];
         const sliderHeights = [];
-        for (let i = 0; i < 6; i++) {
+
+        for (let i = 0; i < (this.numRects + 1); i++) {
             sliders.push(document.getElementById('rect' + i));
             sliderHeights.push(parseFloat(sliders[i].getAttribute('height')));
         }
 
-        const numSliders = 6;
+        let newWidth = (this.STAGE_WIDTH - (this.PAD * (this.numRects + 2)) - this.RIGHT_MARGIN) / (this.numRects + 1);
+
+        // Squish the sliders so they fit in a narrower space to make room for the incoming slider.
+        for (let i = 0; i < (this.numRects + 1); i++) {
+            sliders[i].setAttribute('width', newWidth);
+            sliders[i].setAttribute('x', (this.PAD * (i + 1)) + (newWidth * i));
+        }
+        sliders[this.numRects].setAttribute('visibility', 'visible');
+        
+        this.numRects++;
+        this._setSliderNode(this.numRects - 1, 20);
+        
+        
+    }
+
+    _setSliderNode (sliderIndex, newHeight) {
+        const sliders = [];
+        const sliderHeights = [];
+        for (let i = 0; i < this.numRects; i++) {
+            sliders.push(document.getElementById('rect' + i));
+            sliderHeights.push(parseFloat(sliders[i].getAttribute('height')));
+        }
+
+        const numSliders = this.numRects;
 
         if (sliderIndex < 0 || sliderIndex > numSliders) return;
         if (newHeight < 0) {
@@ -132,7 +164,6 @@ class ConnectionModal extends React.Component {
             if (i !== sliderIndex) {
                 if (sumOfRest === 0) {
                     sliderHeights[i] = sliderHeights[i] + heightDiff / (numSliders - 1);
-
                 } else {
                     sliderHeights[i] = sliderHeights[i] + (heightDiff * sliderHeights[i] / sumOfRest);
                     if (sliderHeights[i] < 0) {
@@ -143,7 +174,7 @@ class ConnectionModal extends React.Component {
         }
         sliderHeights[sliderIndex] = newHeight;
 
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < this.numRects; i++) {
             sliders[i].setAttribute('height', sliderHeights[i]);
             sliders[i].setAttribute('y', this.Y - sliderHeights[i]);
         }
@@ -172,6 +203,8 @@ class ConnectionModal extends React.Component {
                 onMoveSlider={this.handleMoveSlider}
                 onStageMouseMove={this.handleStageMouseMove}
                 onStageMouseUp={this.handleStageMouseUp}
+                onAddSlider={this.handleAddSlider}
+                numRects={this.numRects}
 
             />
         );

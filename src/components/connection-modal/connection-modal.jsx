@@ -32,6 +32,7 @@ const ConnectionModalComponent = props => (
                 onMoveSlider={props.onMoveSlider}
                 onStageMouseUp={props.onStageMouseUp}
                 onStageMouseMove={props.onStageMouseMove}
+                onAddSlider={props.onAddSlider}
                 onCancel={props.onCancel}
             />}
         </Box>

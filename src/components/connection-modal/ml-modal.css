@@ -13,6 +13,12 @@
     background: $ui-white;
 }
 
+.svg-rectangle {
+    fill: "#65CEFF"; 
+    rx: "4px";
+    ry: "4px";
+}
+
 .centered-row {
     display: flex;
     flex-direction: row;
