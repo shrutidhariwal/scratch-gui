@@ -148,17 +148,6 @@ const projectData = translateFunction => {
                         "shadow": false,
                         "topLevel": false
                     },
-                    "@s`gK=M|3]]~R0r4S{!I": {
-                        "opcode": "motion_movesteps",
-                        "next": null,
-                        "parent": "zia,y0r@2QfYm)H`CsPP",
-                        "inputs": {
-                            "STEPS": [1, [4, "48"]]
-                        },
-                        "fields": {},
-                        "shadow": false,
-                        "topLevel": false
-                    },
                     "bVh@w~tK29o2|#9Pdg`f": {
                         "opcode": "chance_setCostumeProb",
                         "next": "zia,y0r@2QfYm)H`CsPP",
@@ -168,7 +157,8 @@ const projectData = translateFunction => {
                         },
                         "fields": {},
                         "shadow": false,
-                        "topLevel": false
+                        "topLevel": false,
+                        "comment": "bu{%~LAz!mhq^Xtwlb:B"
                     },
                     "M;78j;QRd{4hNn1xq5|R": {
                         "opcode": "slider",
@@ -176,7 +166,7 @@ const projectData = translateFunction => {
                         "parent": "bVh@w~tK29o2|#9Pdg`f",
                         "inputs": {},
                         "fields": {
-                            "SLIDER": ["33.31640082324803,1.09375,33.29376847383967,0.8376194657766954,31.45846123713561|1~2~3~4~5", null]
+                            "SLIDER": ["59.859103287336346,0,20.18387034465896,0,19.957026368004726|1~2~3~4~5", null]
                         },
                         "shadow": true,
                         "topLevel": false
@@ -202,10 +192,31 @@ const projectData = translateFunction => {
                         },
                         "shadow": true,
                         "topLevel": false
+                    },
+                    "@s`gK=M|3]]~R0r4S{!I": {
+                        "opcode": "motion_movesteps",
+                        "next": null,
+                        "parent": "zia,y0r@2QfYm)H`CsPP",
+                        "inputs": {
+                            "STEPS": [1, [4, "48"]]
+                        },
+                        "fields": {},
+                        "shadow": false,
+                        "topLevel": false
                     }
                 },
-                "comments": {},
-                "currentCostume": 4,
+                "comments": {
+                    "bu{%~LAz!mhq^Xtwlb:B": {
+                        "blockId": "bVh@w~tK29o2|#9Pdg`f",
+                        "x": 205.40740853768816,
+                        "y": 330.77777777777777,
+                        "width": 261,
+                        "height": 231.9259033203125,
+                        "minimized": false,
+                        "text": "Click the dropdown arrow and change the probability/chance of different costumes coming by clicking/dragging the blue bars. For e.g. currently there is 60% chance of yellow ball coming (costume1) and 0% chance of blue or green ball coming (costumes 2 & 4)."
+                    }
+                },
+                "currentCostume": 0,
                 "costumes": [{
                         "assetId": "3c6241985b581284ec191f9d1deffde8",
                         "name": "ball-a",
@@ -287,7 +298,7 @@ const projectData = translateFunction => {
         "meta": {
             "semver": "3.0.0",
             "vm": "0.2.0",
-            "agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36"
+            "agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:69.0) Gecko/20100101 Firefox/69.0"
         }
     });
 };
