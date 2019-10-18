@@ -67,9 +67,15 @@ class ConnectionModal extends React.Component {
     handleNameDice () {
         const diceName = document.getElementById('diceNameInput').value;
         this.props.vm.runtime.emit('NAME_DICE', diceName);
-        this.setState({
+        if(this.props.vm.runtime.modalDice !== null) {
+            this.setState({
             phase: PHASES.setDistribution
         });
+        }
+        else {
+            alert(`A dice named "${diceName}" already exists.`);
+            this.props.onCancel();
+        }
     }
 
     handleSetDistribution () {
@@ -81,7 +87,6 @@ class ConnectionModal extends React.Component {
             sliderHeights.push(parseFloat(sliders[i].getAttribute('height')));
             result.push(sliderHeights[i] / this.MAX_HEIGHT * 100.0);
         }
-        console.log(result.toString());
         this.props.vm.runtime.emit('SET_DISTRIBUTION', result.toString());
         this.props.onCancel();
     }

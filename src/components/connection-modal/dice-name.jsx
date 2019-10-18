@@ -1,35 +1,53 @@
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
-import classNames from 'classnames';
-
 import Box from '../box/box.jsx';
+import Modal from '../../containers/modal.jsx';
+import styles from './makedice.css';
+import {defineMessages, FormattedMessage} from 'react-intl';
 
-
-import styles from './ml-modal.css';
 
 const DiceName = props => (
-    <Box className={styles.body}>
-        <Box className={styles.activityArea}>
-            <a>Name of Dice:</a>  
-            <input type="text" className="input-field" id="diceNameInput">
-            </input>
-        </Box>
-        <Box className={classNames(styles.bottomArea)}>
-            <Box className={classNames(styles.bottomAreaItem, styles.buttonRow)}>
-                <button onClick={props.onNameDice}>Next</button>      
+    <Modal
+        className={styles.modalContent}
+        contentLabel={'New Dice Name:'}
+        onRequestClose={props.onCancel}
+    >
+        <Box className={styles.body}>
+            <Box className={styles.label}>
+                {props.label}
+            </Box>
+            <Box>
+                <input
+                    autoFocus
+                    className={styles.variableNameTextInput}
+                    defaultValue={props.defaultValue}
+                    id = "diceNameInput"
+                    name={props.label}
+                    onChange={props.onChange}
+                    onFocus={props.onFocus}
+                    onKeyPress={props.onKeyPress}
+                />
+            </Box>
+
+            <Box className={styles.buttonRow}>
+                <button
+                    className={styles.cancelButton}
+                    onClick={props.onCancel}
+                >
+                    <FormattedMessage
+                        defaultMessage="Cancel"
+                        description="Button in prompt for cancelling the dialog"
+                        id="gui.prompt.cancel"
+                    />
+                </button>
+                <button
+                    className={styles.okButton}
+                    onClick={props.onNameDice}
+                >Next</button>
             </Box>
         </Box>
-    </Box>
+    </Modal>
 );
 
-DiceName.propTypes = {
-    onAddLabel: PropTypes.func,
-    onCancel: PropTypes.func,
-    onClearAll: PropTypes.func,
-    onDeleteLabel: PropTypes.func,
-    onEditLabel: PropTypes.func,
-    classifierData: PropTypes.object,
-    imageData: PropTypes.object
-};
-
-export default DiceName;
+export default DiceName;//PromptComponent;

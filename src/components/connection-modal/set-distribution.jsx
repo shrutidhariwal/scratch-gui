@@ -1,10 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import classNames from 'classnames';
-
 import Box from '../box/box.jsx';
-
-
 import styles from './ml-modal.css';
 
 const STAGE_WIDTH = 450;
@@ -55,8 +52,6 @@ SetDistribution.propTypes = {
     onStageMouseUp: PropTypes.func,
     onAddSlider: PropTypes.func,
     numRects: PropTypes.number,
-    classifierData: PropTypes.object
-    
 };
 
 export default SetDistribution;
