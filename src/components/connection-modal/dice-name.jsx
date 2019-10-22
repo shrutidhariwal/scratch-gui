@@ -50,4 +50,4 @@ const DiceName = props => (
     </Modal>
 );
 
-export default DiceName;//PromptComponent;
+export default DiceName;

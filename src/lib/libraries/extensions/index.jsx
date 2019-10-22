@@ -51,13 +51,19 @@ import gdxforConnectionSmallIconURL from './gdxfor/gdxfor-small.svg';
 
 export default [
     {
-        name: 'Chance',
+        name: (
+            <FormattedMessage
+                defaultMessage="Let's Chance"
+                description="Name for the 'Let's Chance' extension"
+                id="gui.extension.chance.name"
+            />
+        ),
         extensionId: 'chance',
         iconURL: chanceIconURL,
         insetIconURL: chanceInsetIconURL,
         description: (
             <FormattedMessage
-                defaultMessage="Play with probabilities"
+                defaultMessage="Make your projects roll with dice."
                 description="Description for the 'Chance' extension"
                 id="gui.extension.chance.description"
             />
