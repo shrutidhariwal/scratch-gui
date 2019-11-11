@@ -64,7 +64,7 @@ export default [
         description: (
             <FormattedMessage
                 defaultMessage="Make your projects roll with dice."
-                description="Description for the 'Chance' extension"
+                description="Description for the 'Let's Chance' extension"
                 id="gui.extension.chance.description"
             />
         ),
