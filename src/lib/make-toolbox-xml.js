@@ -472,6 +472,7 @@ const sensing = function (isStage) {
                 <shadow type="sensing_keyoptions"/>
             </value>
         </block>
+        <block type="sensing_keypressednumber"/>
         <block type="sensing_mousedown"/>
         <block type="sensing_mousex"/>
         <block type="sensing_mousey"/>

@@ -58,6 +58,11 @@ const messages = defineMessages({
     },
 
     // Sensing
+    sensing_keypressednumber: {
+        defaultMessage: 'key number',
+        description: 'Label for the key number monitor when shown on the stage',
+        id: 'gui.opcodeLabels.keypressednumber'
+    },
     sensing_answer: {
         defaultMessage: 'answer',
         description: 'Label for the answer monitor when shown on the stage',
@@ -150,6 +155,7 @@ class OpcodeLabels {
             sound_tempo: {category: 'sound'},
 
             // Sensing
+            sensing_keypressednumber: {category: 'sensing'},
             sensing_answer: {category: 'sensing'},
             sensing_loudness: {category: 'sensing'},
             sensing_username: {category: 'sensing'},
@@ -206,6 +212,7 @@ class OpcodeLabels {
         this._opcodeMap.sound_tempo.labelFn = () => this._translator(messages.sound_tempo);
 
         // Sensing
+        this._opcodeMap.sensing_keypressednumber.labelFn = () => this._translator(messages.sensing_keypressednumber);
         this._opcodeMap.sensing_answer.labelFn = () => this._translator(messages.sensing_answer);
         this._opcodeMap.sensing_loudness.labelFn = () => this._translator(messages.sensing_loudness);
         this._opcodeMap.sensing_username.labelFn = () => this._translator(messages.sensing_username);
