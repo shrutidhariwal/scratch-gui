@@ -11,6 +11,7 @@ const CommunityButton = ({
     className,
     onClick
 }) => (
+    <a href="https://letschance.github.io/examples" target="_blank">
     <Button
         className={classNames(
             className,
@@ -18,14 +19,8 @@ const CommunityButton = ({
         )}
         iconClassName={styles.communityButtonIcon}
         iconSrc={communityIcon}
-        onClick={onClick}
-    >
-        <FormattedMessage
-            defaultMessage="See Project Page"
-            description="Label for see project page button"
-            id="gui.menuBar.seeProjectPage"
-        />
-    </Button>
+    >See Examples</Button>
+    </a>
 );
 
 CommunityButton.propTypes = {

@@ -28,6 +28,7 @@
     border-right: 1px solid $ui-black-transparent !important;
     border-radius: $form-radius;
     background-color: $data-primary !important;
+    opacity: 0 !important;
     height: 1rem !important;
     width: 1rem !important;
 }
@@ -35,7 +36,7 @@
 .show,
 .show:before,
 .show:after {
-    opacity: 1 !important;
+    opacity: 0 !important;
 }
 
 .left:after {

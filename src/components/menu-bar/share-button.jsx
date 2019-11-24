@@ -11,13 +11,14 @@ const ShareButton = ({
     isShared,
     onClick
 }) => (
+    <a href="https://letschance.github.io/share" target="_blank">
     <Button
         className={classNames(
             className,
             styles.shareButton,
             {[styles.shareButtonIsShared]: isShared}
         )}
-        onClick={onClick}
+        
     >
         {isShared ? (
             <FormattedMessage
@@ -33,6 +34,7 @@ const ShareButton = ({
             />
         )}
     </Button>
+    </a>
 );
 
 ShareButton.propTypes = {

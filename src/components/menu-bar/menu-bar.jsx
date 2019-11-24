@@ -65,7 +65,7 @@ import styles from './menu-bar.css';
 
 import helpIcon from '../../lib/assets/icon--tutorials.svg';
 import mystuffIcon from './icon--mystuff.png';
-import profileIcon from './icon--profile.png';
+import profileIcon from './chance-small.svg';
 import remixIcon from './icon--remix.svg';
 import dropdownCaret from './dropdown-caret.svg';
 import languageIcon from '../language-selector/language-icon.svg';
@@ -669,7 +669,6 @@ class MenuBar extends React.Component {
                                         <div
                                             className={classNames(
                                                 styles.menuBarItem,
-                                                styles.hoverable,
                                                 styles.accountNavMenu
                                             )}
                                         >
@@ -678,12 +677,8 @@ class MenuBar extends React.Component {
                                                 src={profileIcon}
                                             />
                                             <span>
-                                                {'scratch-cat'}
+                                                {'Let\'s Chance'}
                                             </span>
-                                            <img
-                                                className={styles.dropdownCaretIcon}
-                                                src={dropdownCaret}
-                                            />
                                         </div>
                                     </MenuBarItemTooltip>
                                 </React.Fragment>
