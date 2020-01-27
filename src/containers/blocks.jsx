@@ -121,6 +121,15 @@ class Blocks extends React.Component {
         toolboxWorkspace.registerButtonCallback('MAKE_A_DICE', diceButtonCallback);
         toolboxWorkspace.registerButtonCallback('SHOW_MARKOV_DICE', markovButtonCallback);
 
+        this.props.vm.runtime.on('DELETE_DICE', blockIDs => {
+            var blocks = this.workspace.getAllBlocks();
+            for(let i = 0; i < blocks.length; i++){
+                if(blockIDs.includes(blocks[i].id)){
+                    blocks[i].dispose();
+                }
+            }
+        })
+
         // Store the xml of the toolbox that is actually rendered.
         // This is used in componentDidUpdate instead of prevProps, because
         // the xml can change while e.g. on the costumes tab.
