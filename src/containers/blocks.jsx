@@ -110,11 +110,25 @@ class Blocks extends React.Component {
         const diceButtonCallback = () => {
             this.handleConnectionModalStart('dice');
         };
+        const markovButtonCallback = () => {
+            this.props.vm.runtime.showMarkovDice = true;
+            this.props.vm.runtime.requestToolboxExtensionsUpdate();
+        };
 
         toolboxWorkspace.registerButtonCallback('MAKE_A_VARIABLE', varListButtonCallback(''));
         toolboxWorkspace.registerButtonCallback('MAKE_A_LIST', varListButtonCallback('list'));
         toolboxWorkspace.registerButtonCallback('MAKE_A_PROCEDURE', procButtonCallback);
         toolboxWorkspace.registerButtonCallback('MAKE_A_DICE', diceButtonCallback);
+        toolboxWorkspace.registerButtonCallback('SHOW_MARKOV_DICE', markovButtonCallback);
+
+        this.props.vm.runtime.on('DELETE_DICE', blockIDs => {
+            var blocks = this.workspace.getAllBlocks();
+            for(let i = 0; i < blocks.length; i++){
+                if(blockIDs.includes(blocks[i].id)){
+                    blocks[i].dispose();
+                }
+            }
+        })
 
         // Store the xml of the toolbox that is actually rendered.
         // This is used in componentDidUpdate instead of prevProps, because
