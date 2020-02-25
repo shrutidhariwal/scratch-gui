@@ -14,7 +14,7 @@ class ConnectionModal extends React.Component {
         bindAll(this, [
             'handleNameDice',
             'handleCancel',
-            'handleKeyPress',
+            'handleKeyPress'
         ]);
         this.state = {
             extension: extensionData.find(ext => ext.extensionId === props.extensionId),
@@ -23,20 +23,20 @@ class ConnectionModal extends React.Component {
     }
 
     handleKeyPress (event) {
-        if (event.key === 'Enter') this.handleNameDice();
+        if (event.key === 'Enter') this.props.onCancel();
     }
     
 
     handleCancel () {
-        try {
+        /*try {
             // If we're not connected to a peripheral, close the websocket so we stop scanning.
             if (!this.props.vm.getPeripheralIsConnected(this.props.extensionId)) {
                 this.props.vm.disconnectPeripheral(this.props.extensionId);
             }
-        } finally {
+        } finally {*/
             // Close the modal.
             this.props.onCancel();
-        }
+        //}
     }
 
     handleNameDice () {
@@ -47,16 +47,12 @@ class ConnectionModal extends React.Component {
             const diceExists = this.props.vm.runtime.dice.findIndex(item => item.diceName === diceName);
             if(diceExists === -1) {
                 this.props.vm.runtime.emit('NAME_DICE', diceNameAndType);
-                this.props.onCancel();
             }
             else {
                 alert(`A dice named "${diceName}" already exists.`);
-                this.props.onCancel();
             } 
         }
-        else {
-            this.props.onCancel();
-        }
+        this.props.onCancel();
     }
 
     
@@ -79,7 +75,7 @@ class ConnectionModal extends React.Component {
 
 ConnectionModal.propTypes = {
     extensionId: PropTypes.string.isRequired,
-    onCancel: PropTypes.func.isRequired,
+    onCancel: PropTypes.func,
     vm: PropTypes.instanceOf(VM).isRequired
 };
 
