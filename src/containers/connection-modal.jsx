@@ -12,21 +12,51 @@ class ConnectionModal extends React.Component {
     constructor (props) {
         super(props);
         bindAll(this, [
-            'handleNameDice',
+            'handleScanning',
             'handleCancel',
-            'handleKeyPress',
+            'handleConnected',
+            'handleConnecting',
+            'handleDisconnect',
+            'handleError',
+            'handleHelp'
         ]);
         this.state = {
             extension: extensionData.find(ext => ext.extensionId === props.extensionId),
-            phase: PHASES.diceName
+            phase: props.vm.getPeripheralIsConnected(props.extensionId) ?
+                PHASES.connected : PHASES.scanning
         };
     }
-
-    handleKeyPress (event) {
-        if (event.key === 'Enter') this.handleNameDice();
+    componentDidMount () {
+        this.props.vm.on('PERIPHERAL_CONNECTED', this.handleConnected);
+        this.props.vm.on('PERIPHERAL_REQUEST_ERROR', this.handleError);
     }
-    
-
+    componentWillUnmount () {
+        this.props.vm.removeListener('PERIPHERAL_CONNECTED', this.handleConnected);
+        this.props.vm.removeListener('PERIPHERAL_REQUEST_ERROR', this.handleError);
+    }
+    handleScanning () {
+        this.setState({
+            phase: PHASES.scanning
+        });
+    }
+    handleConnecting (peripheralId) {
+        this.props.vm.connectPeripheral(this.props.extensionId, peripheralId);
+        this.setState({
+            phase: PHASES.connecting
+        });
+        analytics.event({
+            category: 'extensions',
+            action: 'connecting',
+            label: this.props.extensionId
+        });
+    }
+    handleDisconnect () {
+        try {
+            this.props.vm.disconnectPeripheral(this.props.extensionId);
+        } finally {
+            this.props.onCancel();
+        }
+    }
     handleCancel () {
         try {
             // If we're not connected to a peripheral, close the websocket so we stop scanning.
@@ -38,40 +68,61 @@ class ConnectionModal extends React.Component {
             this.props.onCancel();
         }
     }
-
-    handleNameDice () {
-        const diceName = document.getElementById('diceNameInput').value;
-        const diceType = document.getElementById('diceTypeInput').value;
-        const diceNameAndType = [diceName, diceType];
-        if(diceName !== ''){
-            const diceExists = this.props.vm.runtime.dice.findIndex(item => item.diceName === diceName);
-            if(diceExists === -1) {
-                this.props.vm.runtime.emit('NAME_DICE', diceNameAndType);
-                this.props.onCancel();
-            }
-            else {
-                alert(`A dice named "${diceName}" already exists.`);
-                this.props.onCancel();
-            } 
-        }
-        else {
-            this.props.onCancel();
+    handleError () {
+        // Assume errors that come in during scanning phase are the result of not
+        // having scratch-link installed.
+        if (this.state.phase === PHASES.scanning || this.state.phase === PHASES.unavailable) {
+            this.setState({
+                phase: PHASES.unavailable
+            });
+        } else {
+            this.setState({
+                phase: PHASES.error
+            });
+            analytics.event({
+                category: 'extensions',
+                action: 'connecting error',
+                label: this.props.extensionId
+            });
         }
     }
-
-    
+    handleConnected () {
+        this.setState({
+            phase: PHASES.connected
+        });
+        analytics.event({
+            category: 'extensions',
+            action: 'connected',
+            label: this.props.extensionId
+        });
+    }
+    handleHelp () {
+        window.open(this.state.extension.helpLink, '_blank');
+        analytics.event({
+            category: 'extensions',
+            action: 'help',
+            label: this.props.extensionId
+        });
+    }
     render () {
         return (
             <ConnectionModalComponent
-                
+                connectingMessage={this.state.extension && this.state.extension.connectingMessage}
+                connectionIconURL={this.state.extension && this.state.extension.connectionIconURL}
+                connectionSmallIconURL={this.state.extension && this.state.extension.connectionSmallIconURL}
+                connectionTipIconURL={this.state.extension && this.state.extension.connectionTipIconURL}
                 extensionId={this.props.extensionId}
                 name={this.state.extension && this.state.extension.name}
                 phase={this.state.phase}
                 title={this.props.extensionId}
+                useAutoScan={this.state.extension && this.state.extension.useAutoScan}
                 vm={this.props.vm}
                 onCancel={this.handleCancel}
-                onNameDice={this.handleNameDice}
-                onKeyPress={this.handleKeyPress}
+                onConnected={this.handleConnected}
+                onConnecting={this.handleConnecting}
+                onDisconnect={this.handleDisconnect}
+                onHelp={this.handleHelp}
+                onScanning={this.handleScanning}
             />
         );
     }
