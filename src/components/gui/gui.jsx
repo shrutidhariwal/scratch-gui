@@ -29,6 +29,7 @@ import Cards from '../../containers/cards.jsx';
 import Alerts from '../../containers/alerts.jsx';
 import DragLayer from '../../containers/drag-layer.jsx';
 import ConnectionModal from '../../containers/connection-modal.jsx';
+import DiceModal from '../../containers/dice-modal.jsx';
 import TelemetryModal from '../telemetry-modal/telemetry-modal.jsx';
 
 import layout, {STAGE_SIZE_MODES} from '../../lib/layout-constants';
@@ -79,6 +80,7 @@ const GUIComponent = props => {
         connectionModalVisible,
         costumeLibraryVisible,
         costumesTabVisible,
+        diceModalVisible,
         enableCommunity,
         intl,
         isCreating,
@@ -185,6 +187,11 @@ const GUIComponent = props => {
                 ) : null}
                 {connectionModalVisible ? (
                     <ConnectionModal
+                        vm={vm}
+                    />
+                ) : null}
+                {diceModalVisible ? (
+                    <DiceModal
                         vm={vm}
                     />
                 ) : null}

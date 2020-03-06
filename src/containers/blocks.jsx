@@ -22,7 +22,7 @@ import defineDynamicBlock from '../lib/define-dynamic-block';
 import {connect} from 'react-redux';
 import {updateToolbox} from '../reducers/toolbox';
 import {activateColorPicker} from '../reducers/color-picker';
-import {closeExtensionLibrary, openSoundRecorder, openConnectionModal} from '../reducers/modals';
+import {closeExtensionLibrary, openSoundRecorder, openConnectionModal, openDiceModal} from '../reducers/modals';
 import {activateCustomProcedures, deactivateCustomProcedures} from '../reducers/custom-procedures';
 import {setConnectionModalExtensionId} from '../reducers/connection-modal';
 
@@ -55,6 +55,7 @@ class Blocks extends React.Component {
             'handleCategorySelected',
             'handleConnectionModalStart',
             'handleDrop',
+            'handleDiceModalStart',
             'handleStatusButtonUpdate',
             'handleOpenSoundRecorder',
             'handlePromptStart',
@@ -108,7 +109,7 @@ class Blocks extends React.Component {
             this.ScratchBlocks.Procedures.createProcedureDefCallback_(this.workspace);
         };
         const diceButtonCallback = () => {
-            this.handleConnectionModalStart('dice');
+            this.handleDiceModalStart();
         };
         const markovButtonCallback = () => {
             this.props.vm.runtime.showMarkovDice = true;
@@ -486,6 +487,9 @@ class Blocks extends React.Component {
     handleConnectionModalStart (extensionId) {
         this.props.onOpenConnectionModal(extensionId);
     }
+    handleDiceModalStart () {
+        this.props.onOpenDiceModal();
+    }
     handleStatusButtonUpdate () {
         this.ScratchBlocks.refreshStatusButtons(this.workspace);
     }
@@ -537,6 +541,7 @@ class Blocks extends React.Component {
             isVisible,
             onActivateColorPicker,
             onOpenConnectionModal,
+            onOpenDiceModal,
             onOpenSoundRecorder,
             updateToolboxState,
             onActivateCustomProcedures,
@@ -598,6 +603,7 @@ Blocks.propTypes = {
     onActivateColorPicker: PropTypes.func,
     onActivateCustomProcedures: PropTypes.func,
     onOpenConnectionModal: PropTypes.func,
+    onOpenDiceModal: PropTypes.func,
     onOpenSoundRecorder: PropTypes.func,
     onRequestCloseCustomProcedures: PropTypes.func,
     onRequestCloseExtensionLibrary: PropTypes.func,
@@ -681,6 +687,9 @@ const mapDispatchToProps = dispatch => ({
     onOpenConnectionModal: id => {
         dispatch(setConnectionModalExtensionId(id));
         dispatch(openConnectionModal());
+    },
+    onOpenDiceModal: () => {
+        dispatch(openDiceModal());
     },
     onOpenSoundRecorder: () => {
         dispatch(activateTab(SOUNDS_TAB_INDEX));
