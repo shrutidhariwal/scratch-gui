@@ -29,19 +29,16 @@ class DiceModal extends React.Component {
         const diceType = document.getElementById('diceTypeInput').value;
         const diceNameAndType = [diceName, diceType];
         if (diceName !== '') {
-            const diceExists = this.props.vm.runtime.dice.findIndex(item => item.diceName === diceName);
+            const dicenameCheck = `${diceName}-dice`;
+            const diceExists = this.props.vm.runtime.dice.findIndex(item => item.diceName === dicenameCheck);
             if (diceExists === -1) {
                 this.props.vm.runtime.emit('NAME_DICE', diceNameAndType);
-                this.props.onCancel();
             }
             else {
                 alert(`A dice named "${diceName}" already exists.`);
-                this.props.onCancel();
             }
         }
-        else {
-            this.props.onCancel();
-        }
+        this.props.onCancel();
     }
 
     render() {

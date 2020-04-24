@@ -27,6 +27,7 @@ const DiceModalComponent = props => {
                         onFocus={props.onFocus}
                         onKeyPress={props.onKeyPress}
                     />
+                    {' -dice'}
                 </Box>
                 <Box className={styles.label}>
                     {'Set dice type:'}
@@ -37,7 +38,7 @@ const DiceModalComponent = props => {
                         <option value="text">{'Text'}</option>
                         <option value="costume">{'Costume'}</option>
                         <option value="sound">{'Sound'}</option>
-                        <option value="range">{'Range'}</option>
+                        <option value="range">{'Range (e.g. 0to20, 21to40...)'}</option>
                     </select>
                 </Box>
                 <Box className={styles.buttonRow}>
