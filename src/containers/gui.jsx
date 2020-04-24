@@ -160,6 +160,7 @@ const mapStateToProps = state => {
         connectionModalVisible: state.scratchGui.modals.connectionModal,
         costumeLibraryVisible: state.scratchGui.modals.costumeLibrary,
         costumesTabVisible: state.scratchGui.editorTab.activeTabIndex === COSTUMES_TAB_INDEX,
+        diceModalVisible: state.scratchGui.modals.diceModal,
         error: state.scratchGui.projectState.error,
         isError: getIsError(loadingState),
         isFullScreen: state.scratchGui.mode.isFullScreen,
