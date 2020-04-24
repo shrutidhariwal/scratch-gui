@@ -7,6 +7,11 @@ let messages = defineMessages({
         description: 'Name for the meow sound',
         id: 'gui.defaultProject.meow'
     },
+    meow2: {
+        defaultMessage: 'Meow2',
+        description: 'Name for the meow2 sound',
+        id: 'gui.defaultProject.meow2'
+    },
     variable: {
         defaultMessage: 'my variable',
         description: 'Name for the default variable',
@@ -101,6 +106,16 @@ const projectData = translateFunction => {
                         rate: 22050,
                         sampleCount: 18688,
                         md5ext: '83c36d806dc92327b9e7049a565c6bff.wav'
+                    },
+
+                    {
+                        assetId: "cf51a0c4088942d95bcc20af13202710",
+                        name: translator(messages.meow2),
+                        dataFormat: 'wav',
+                        format: '',
+                        rate: 44100,
+                        sampleCount: 26048,
+                        md5ext: 'cf51a0c4088942d95bcc20af13202710.wav'
                     }
                 ],
                 volume: 100,

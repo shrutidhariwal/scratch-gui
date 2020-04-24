@@ -3,6 +3,7 @@ import projectData from './project-data';
 /* eslint-disable import/no-unresolved */
 import popWav from '!arraybuffer-loader!./83a9787d4cb6f3b7632b4ddfebf74367.wav';
 import meowWav from '!arraybuffer-loader!./83c36d806dc92327b9e7049a565c6bff.wav';
+import meow2Wav from '!arraybuffer-loader!./cf51a0c4088942d95bcc20af13202710.wav';
 import backdrop from '!raw-loader!./cd21514d0531fdffb22204e0ec5ed84a.svg';
 import costume1 from '!raw-loader!./b7853f557e4426412e64bb3da6531a99.svg';
 import costume2 from '!raw-loader!./e6ddc55a6ddd9cc9d84fe0b4c21e016f.svg';
@@ -34,6 +35,11 @@ const defaultProject = translator => {
         assetType: 'Sound',
         dataFormat: 'WAV',
         data: new Uint8Array(meowWav)
+    }, {
+        id: 'cf51a0c4088942d95bcc20af13202710',
+        assetType: 'Sound',
+        dataFormat: 'WAV',
+        data: new Uint8Array(meow2Wav)
     }, {
         id: 'cd21514d0531fdffb22204e0ec5ed84a',
         assetType: 'ImageVector',
