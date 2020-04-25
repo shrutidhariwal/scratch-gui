@@ -11,7 +11,7 @@ const CommunityButton = ({
     className,
     onClick
 }) => (
-    <a href="https://letschance.github.io/examples" target="_blank">
+    <a href="https://letschance.github.io" target="_blank">
     <Button
         className={classNames(
             className,
