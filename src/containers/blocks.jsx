@@ -157,11 +157,11 @@ class Blocks extends React.Component {
         if (this.props.preLoadedExtension) {
             window.setTimeout(
                 () => this.props.vm.extensionManager.loadExtensionURL(this.props.preLoadedExtension),
-                1000
+                2000
             );
             window.setTimeout(
                 () => this.handleCategorySelected(this.props.preLoadedExtension),
-                2000
+                3000
             );
         }
     }
