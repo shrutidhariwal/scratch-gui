@@ -303,6 +303,7 @@ const GUIComponent = props => {
                                             canUseCloud={canUseCloud}
                                             grow={1}
                                             isVisible={blocksTabVisible}
+                                            preLoadedExtension={'chance'}
                                             options={{
                                                 media: `${basePath}static/blocks-media/`
                                             }}
