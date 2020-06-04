@@ -14,6 +14,8 @@ import {
     projectError
 } from '../reducers/project-state';
 
+import nets from 'nets';
+
 /*
  * Higher Order Component to manage events emitted by the VM
  * @param {React.Component} WrappedComponent component to manage VM events for
@@ -52,12 +54,23 @@ const vmManagerHOC = function (WrappedComponent) {
             }
         }
         loadProject () {
-            return this.props.vm.loadProject(this.props.projectData)
+            const urlParams = new URLSearchParams(window.location.search);
+            const project = urlParams.get('starterProject');
+            let firstPromise = this.props.vm.loadProject(this.props.projectData);
+            if (project) {
+                firstPromise = this.downloadProjectFromURLDirect(project);
+            }
+            return firstPromise
                 .then(() => {
                     this.props.onLoadedProject(this.props.loadingState, this.props.canSave);
                     // Wrap in a setTimeout because skin loading in
                     // the renderer can be async.
-                    setTimeout(() => this.props.onSetProjectUnchanged());
+                    setTimeout(() => {
+                        this.props.onSetProjectUnchanged();
+                        // If there is a starter project, remove it from the URL
+                        // This is a hack to make File->New work correctly
+                        history.pushState(null, null, window.location.origin + window.location.pathname);
+                    });
 
                     // If the vm is not running, call draw on the renderer manually
                     // This draws the state of the loaded project with no blocks running
@@ -73,6 +86,13 @@ const vmManagerHOC = function (WrappedComponent) {
                 .catch(e => {
                     this.props.onError(e);
                 });
+        }
+        downloadProjectFromURLDirect (url) {
+            return new Promise(resolve => {
+                nets({url: url}, (err, resp, body) => {
+                    resolve(this.props.vm.loadProject(body));
+                });
+            });
         }
         render () {
             const {
